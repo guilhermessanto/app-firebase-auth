@@ -11,6 +11,9 @@ import { useState } from "react";
 
 const AreaLogada = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
+  const usuarioLogado = auth.currentUser;
+  console.log(usuarioLogado);
+
   const logout = () => {
     setLoading(true);
     signOut(auth)
@@ -25,7 +28,9 @@ const AreaLogada = ({ navigation }) => {
   return (
     <View style={estilos.container}>
       <View style={estilos.topo}>
-        <Text style={estilos.bemVindo}>Bem-vindo(a)</Text>
+        <Text style={estilos.bemVindo}>
+          Bem-vindo(a) {usuarioLogado.displayName}
+        </Text>
         <Button
           desabled={loading}
           title="Logout"
