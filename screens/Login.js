@@ -1,7 +1,17 @@
 import { useState } from "react";
-import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
-/* Importamos os recursos de autenticação através das configurações firebase */
+import {
+  ActivityIndicator,
+  Alert,
+  Button,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
+
+/* Importamos os recursos de autenticação através das configurações Firebase */
 import { auth } from "../firebaseConfig";
+
+/* Importamos as funções de autenticação diretamente da lib */
 import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -10,18 +20,22 @@ import {
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const login = () => {
     if (!email || !senha) {
-      Alert.alert("Atenção", "Você deve preencher todos os campos");
-      return;
+      Alert.alert("Atenção!", "Você deve preencher todos os campos");
+      return; // parar o processo
     }
 
+    setLoading(true);
     signInWithEmailAndPassword(auth, email, senha)
       .then(() => {
-        navigation.navigate("AreaLogada");
+        navigation.replace("AreaLogada");
       })
       .catch((error) => {
+        // console.log(error);
+        // console.log(error.code);
         let mensagem;
         switch (error.code) {
           case "auth/user-not-found":
@@ -35,37 +49,49 @@ const Login = ({ navigation }) => {
             break;
         }
         Alert.alert("Ops!", mensagem);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   const recuperarSenha = () => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        Alert.alert("Recuperar senha", "Verifique seu E-mail");
+        Alert.alert("Recuperar senha", "Verifique sua caixa de entrada");
       })
       .catch((error) => console.log(error));
   };
+
   return (
     <View style={estilos.container}>
       <View style={estilos.formulario}>
         <TextInput
           onChangeText={(valor) => setEmail(valor)}
-          keyboardType="email-address"
           placeholder="E-mail"
           style={estilos.input}
+          keyboardType="email-address"
         />
         <TextInput
           onChangeText={(valor) => setSenha(valor)}
-          secureTextEntry
           placeholder="Senha"
           style={estilos.input}
+          secureTextEntry
         />
+
         <View style={estilos.botoes}>
-          <Button title="Entre" color="green" onPress={login} />
+          <Button
+            disabled={loading}
+            title="Entre"
+            color="green"
+            onPress={login}
+          />
+
+          {loading && <ActivityIndicator size="large" color="green" />}
 
           <Button
-            title="Recuperar Senha"
-            color="blue"
+            title="Recuperar senha"
+            color="darkgreen"
             onPress={recuperarSenha}
           />
         </View>
