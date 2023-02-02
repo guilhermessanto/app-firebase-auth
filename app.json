@@ -12,9 +12,12 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/654d1b3b-dae5-4aeb-96db-ca312f2db10a"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -32,6 +35,9 @@
         "projectId": "654d1b3b-dae5-4aeb-96db-ca312f2db10a"
       }
     },
-    "owner": "guilhermessanto"
+    "owner": "guilhermessanto",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    }
   }
 }
