@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "app-firebase-auth",
-    "slug": "app-firebase-auth",
+    "name": "App Auth",
+    "slug": "app-auth",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -28,6 +26,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "654d1b3b-dae5-4aeb-96db-ca312f2db10a"
+      }
+    },
+    "owner": "guilhermessanto"
   }
 }
